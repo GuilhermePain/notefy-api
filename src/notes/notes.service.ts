@@ -13,7 +13,7 @@ export class NotesService {
       data: { 
         ...createNoteDto, userId: req.user.sub
       } 
-    })
+    });
   }
 
   findNote(noteId: number, userId: number) {
