@@ -7,7 +7,7 @@ async function bootstrap() {
   const port = process.env.PORT
   app.useGlobalPipes(new ValidationPipe);
   app.enableCors({
-    origin: ['http://localhost:5173', 'http://localhost:5174'],
+    origin: ['http://localhost:5173', 'http://localhost:5174', 'conservative-violette-guilhermerocha-4c0b4e6a.koyeb.app/'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', 
     credentials: true
   });
