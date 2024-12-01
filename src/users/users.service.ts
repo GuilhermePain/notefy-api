@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { ConflictException, Inject, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/database/database.service';
@@ -11,9 +11,18 @@ export class UsersService {
   @Inject()
   private readonly prisma: PrismaService
 
-  async create(createUserDto: CreateUserDto): Promise<User> {
-    const hashSenha = await bcrypt.hash(createUserDto.password, 10)
-    return this.prisma.user.create({ data: { ...createUserDto, password: hashSenha } })
+  async create(createUserDto: CreateUserDto): Promise<User | string> {
+
+    const user = await this.prisma.user.findUnique({
+      where: { email: createUserDto.email }
+    });
+
+    if(user) {
+      throw new ConflictException("E-mail já cadastrado, tente novamente.");
+    }
+
+    const hashSenha = await bcrypt.hash(createUserDto.password, 10);
+    return this.prisma.user.create({ data: { ...createUserDto, password: hashSenha } });
   }
 
   // Nova função para buscar todos os usuários
