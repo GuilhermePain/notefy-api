@@ -5,9 +5,8 @@ import { AuthModule } from './auth/auth.module';
 import { MailModule } from './mail/mail.module';
 import { NotesModule } from './notes/notes.module';
 import { AiModule } from './ai/ai.module';
-import { ConfigModule } from "@nestjs/config";
 
 @Module({
-  imports: [UsersModule, DatabaseModule, AuthModule, MailModule, NotesModule, AiModule, ConfigModule.forRoot()],
+  imports: [UsersModule, DatabaseModule, AuthModule, MailModule, NotesModule, AiModule],
 })
 export class AppModule {}
