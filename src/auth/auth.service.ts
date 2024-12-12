@@ -54,7 +54,7 @@ export class AuthService {
             const hashedPassword = await bcrypt.hash(newPassword, 10);
             await this.userService.update(user.id, { password: hashedPassword });
         } catch (error) {
-            
+            console.log(error);
         }
     }
 }
