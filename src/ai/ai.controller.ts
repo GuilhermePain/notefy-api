@@ -5,7 +5,7 @@ import { AiService } from './ai.service';
 export class AiController {
   constructor(private readonly aiService: AiService) { }
 
-  @Post('sendmessage')
+  @Post('generatenote')
   sendMessage(@Body('prompt') prompt: string) {
     return this.aiService.generateResponse(prompt);
   }
