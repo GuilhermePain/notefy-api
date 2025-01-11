@@ -29,17 +29,14 @@ export class AuthService {
     }
 
     async forgotPassword(email: string): Promise<void> {
-        const user = await this.userService.findUser({ email: email })
-
-        if (!user) throw new NotFoundException('Usuário não encontrado.')
 
         try {
             const resetToken = this.jwtService.signAsync(
-                { email: user.email },
+                { email: email },
                 { secret: process.env.SECRET, expiresIn: '1h' }
             )
 
-            await this.mailService.sendResetPasswordEmail(user.email, await resetToken)
+            await this.mailService.sendResetPasswordEmail(email, await resetToken)
         } catch (error) {
             console.log(error);
         }
