@@ -10,8 +10,8 @@ generator client {
 
 datasource db {
   provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  url       = env("DEV_DATABASE_URL")
+  // directUrl = env("DIRECT_URL")
 }
 
 model User {
@@ -25,7 +25,7 @@ model User {
 model Notes {
   id Int @default(autoincrement()) @id
   title String
-  body String
+  body String?
   userId Int
   user User @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
